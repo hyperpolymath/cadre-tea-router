@@ -3,12 +3,34 @@
 
 TEA-specialised routing integration for ReScript, built on top of `cadre-router`.
 
+== Architecture
+
+[source]
+----
+┌─────────────────────────────────────────────────────────────┐
+│                     cadre-tea-router                        │
+│  • Route → Msg patterns                                     │
+│  • URL subscriptions                                        │
+│  • Navigation Cmds (push/replace/back/forward)              │
+│  • init-from-URL helpers                                    │
+└─────────────────────────────────────────────────────────────┘
+                            │
+                            ▼
+┌─────────────────────────────────────────────────────────────┐
+│                      cadre-router                           │
+│  • URL parsing/formatting combinators                       │
+│  • Route definitions                                        │
+│  • Framework-agnostic primitives                            │
+└─────────────────────────────────────────────────────────────┘
+----
+
 == Scope
 
 This repository provides TEA/Elm-Architecture wiring:
-* Route -> Msg patterns
+
+* Route → Msg patterns
 * init-from-URL helpers
-* subscriptions for URL changes
+* Subscriptions for URL changes
 * Cmd helpers for navigation (push/replace/back/forward)
 * TEA-focused examples
 
@@ -18,6 +40,80 @@ This repository provides TEA/Elm-Architecture wiring:
 * Framework-agnostic routing primitives (belongs to `cadre-router`).
 * React-specific routing APIs unless they are explicitly TEA-driven.
 
-== Dependency
+== Installation
 
-This package depends on `cadre-router` as the stable core.
+[source,bash]
+----
+npm install @anthropics/cadre-tea-router @anthropics/cadre-router
+----
+
+Add to `rescript.json`:
+[source,json]
+----
+{
+  "bs-dependencies": [
+    "@anthropics/cadre-router",
+    "@anthropics/cadre-tea-router"
+  ]
+}
+----
+
+== Usage
+
+[source,rescript]
+----
+// Define your routes using cadre-router
+module Routes = {
+  open CadreRouter
+
+  let home = root
+  let users = s("users")
+  let user = s("users") / int
+}
+
+// Wire into TEA with cadre-tea-router
+module App = {
+  open CadreTeaRouter
+
+  type route =
+    | Home
+    | Users
+    | User(int)
+    | NotFound
+
+  type msg =
+    | UrlChanged(route)
+    | Navigate(route)
+    | ...
+
+  let parseRoute = url => {
+    open Routes
+    switch url {
+    | url if home->matches(url) => Home
+    | url if users->matches(url) => Users
+    | url => user->parse(url)->Option.mapOr(NotFound, id => User(id))
+    }
+  }
+
+  let subscriptions = _ => {
+    Router.urlChanges(url => UrlChanged(parseRoute(url)))
+  }
+
+  let update = (msg, model) => {
+    switch msg {
+    | Navigate(route) => (model, Router.push(routeToUrl(route)))
+    | UrlChanged(route) => ({...model, route}, Cmd.none)
+    | ...
+    }
+  }
+}
+----
+
+== Related Packages
+
+* https://github.com/anthropics/cadre-router[cadre-router] - Core routing primitives
+* https://github.com/anthropics/rescript-tea[rescript-tea] - TEA implementation for ReScript
+
+== License
+
+MIT
