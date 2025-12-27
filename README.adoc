@@ -1,5 +1,3 @@
-# cadre-tea-router
-
 = cadre-tea-router
 :toc:
 
