@@ -1,4 +1,6 @@
-# cadre-tea-router= cadre-tea-router
+# cadre-tea-router
+
+= cadre-tea-router
 :toc:
 
 TEA-specialised routing integration for ReScript, built on top of `cadre-router`.
