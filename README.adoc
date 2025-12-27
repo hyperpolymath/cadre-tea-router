@@ -1,0 +1,23 @@
+# cadre-tea-router= cadre-tea-router
+:toc:
+
+TEA-specialised routing integration for ReScript, built on top of `cadre-router`.
+
+== Scope
+
+This repository provides TEA/Elm-Architecture wiring:
+* Route -> Msg patterns
+* init-from-URL helpers
+* subscriptions for URL changes
+* Cmd helpers for navigation (push/replace/back/forward)
+* TEA-focused examples
+
+== Non-goals
+
+* Re-implementing URL parsing/formatting combinators (belongs to `cadre-router`).
+* Framework-agnostic routing primitives (belongs to `cadre-router`).
+* React-specific routing APIs unless they are explicitly TEA-driven.
+
+== Dependency
+
+This package depends on `cadre-router` as the stable core.
