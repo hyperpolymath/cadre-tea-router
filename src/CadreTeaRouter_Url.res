@@ -9,11 +9,32 @@ type t = {
 
 @ocaml.doc("Parse a URL string into components")
 let parse: string => t = url => {
-  // TODO: Implement proper URL parsing using cadre-router
+  // Split URL into path, query, and fragment
+  let (pathAndQuery, fragment) = switch url->String.split("#") {
+  | [pq, f] => (pq, Some(f))
+  | [pq] => (pq, None)
+  | _ => (url, None)
+  }
+
+  let (path, query) = switch pathAndQuery->String.split("?") {
+  | [p, q] => (p, Some(q))
+  | [p] => (p, None)
+  | _ => (pathAndQuery, None)
+  }
+
+  // Normalize path - ensure leading slash, remove trailing slash
+  let normalizedPath = switch path {
+  | "" => "/"
+  | p if !p->String.startsWith("/") => "/" ++ p
+  | p if p->String.length > 1 && p->String.endsWith("/") =>
+    p->String.slice(~start=0, ~end=p->String.length - 1)
+  | p => p
+  }
+
   {
-    path: url,
-    query: None,
-    fragment: None,
+    path: normalizedPath,
+    query,
+    fragment,
   }
 }
 
