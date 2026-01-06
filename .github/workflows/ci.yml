@@ -7,12 +7,14 @@ on:
   pull_request:
     branches: ["*"]
 
+permissions: read-all
+
 jobs:
   boundary-check:
     name: Check module boundaries
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6.0.1
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       - name: Forbid cross-pollination from cadre-router
         run: ./scripts/check-boundaries.sh
