@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: AGPL-3.0-or-later
+// SPDX-License-Identifier: PMPL-1.0-or-later
 = Cadre Tea Router Roadmap
 
 == Current Status
@@ -20,3 +20,14 @@ Initial development phase.
 == Future Directions
 
 _To be determined based on community feedback._
+
+== OPSM Integration
+
+[source]
+----
+OPSM Core
+  |
+  v
+cadre-tea-router (UI routing layer for OPSM (ReScript TEA))
+
+----

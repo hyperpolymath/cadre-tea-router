@@ -1,13 +1,25 @@
-;; SPDX-License-Identifier: MPL-2.0
-;; ECOSYSTEM.scm - Ecosystem positioning
+;; SPDX-License-Identifier: PMPL-1.0-or-later
+;; ECOSYSTEM.scm - Project relationship mapping
 
 (ecosystem
-  ((version . "1.0.0")
-   (name . "cadre-tea-router")
-   (type . "application")
-   (purpose . "Hyperpolymath project")
-   (position-in-ecosystem . "supporting")
-   (related-projects
-     ((palimpsest-license . "license-framework")))
-   (what-this-is . ("Hyperpolymath project"))
-   (what-this-is-not . ())))
+  (version "1.0")
+  (name "cadre-tea-router")
+  (type "project")
+  (purpose "image:https://img.shields.io/badge/License-MPL_2.0-blue.svg[MPL-2.0,link=\"https:")
+
+  (position-in-ecosystem
+    (role "component")
+    (layer "application")
+    (description "image:https://img.shields.io/badge/License-MPL_2.0-blue.svg[MPL-2.0,link=\"https:"))
+
+  (related-projects . ())
+
+  (what-this-is
+    "image:https://img.shields.io/badge/License-MPL_2.0-blue.svg[MPL-2.0,link=\"https:")
+
+  (what-this-is-not . ())
+  (opsm-integration
+    (relationship "core")
+    (description "UI routing layer for OPSM (ReScript TEA).")
+    (direction "opsm -> cadre-tea-router"))
+)

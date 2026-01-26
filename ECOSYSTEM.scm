@@ -1,4 +1,4 @@
-;; SPDX-License-Identifier: PMPL-1.0
+;; SPDX-License-Identifier: PMPL-1.0-or-later
 ;; ECOSYSTEM.scm - Project relationship mapping
 
 (ecosystem
@@ -17,4 +17,9 @@
   (what-this-is
     "image:https://img.shields.io/badge/License-MPL_2.0-blue.svg[MPL-2.0,link=\"https:")
 
-  (what-this-is-not . ()))
+  (what-this-is-not . ())
+  (opsm-integration
+    (relationship "core")
+    (description "UI routing layer for OPSM (ReScript TEA).")
+    (direction "opsm -> cadre-tea-router"))
+)
