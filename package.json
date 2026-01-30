@@ -15,8 +15,11 @@
     "router",
     "routing"
   ],
-  "author": "",
+  "author": "Jonathan D.A. Jewell <jonathan.jewell@open.ac.uk>",
   "license": "MIT",
+  "dependencies": {
+    "@proven/rescript-bindings": "file:../proven/bindings/rescript"
+  },
   "peerDependencies": {
     "@anthropics/cadre-router": "^0.1.0",
     "rescript": "^11.0.0",
